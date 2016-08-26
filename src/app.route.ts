@@ -1,5 +1,5 @@
 import { Routes, RouterModule } from '@angular/router';
-import { CreateComponent } from './create/create.component';
+import { CreateComponent } from './template/create.component';
 import { DashBoardComponent } from './dashboard/dashboard.component';
 
 const appRoutes: Routes = [

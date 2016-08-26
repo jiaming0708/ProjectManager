@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 @Component({
   selector: 'create',
-  template: `
-  create
-  `
+  templateUrl: './create.template.html'
 })
 export class CreateComponent { }

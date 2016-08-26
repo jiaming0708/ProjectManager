@@ -4,7 +4,7 @@ import { platformBrowserDynamic }    from '@angular/platform-browser-dynamic';
 
 import { AppComponent } from './app.component';
 import { routing, appRoutingProviders } from './app.route';
-import { CreateComponent } from './create/create.component';
+import { CreateComponent } from './template/create.component';
 import { DashBoardComponent } from './dashboard/dashboard.component';
 
 import '../scss/main.scss';
