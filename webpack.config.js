@@ -1,7 +1,7 @@
 var webpack = require("webpack");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require("path");
-
 
 module.exports = {
   entry: {
@@ -19,20 +19,25 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.ts/,
-        loaders: ['ts-loader'],
-        exclude: /node_modules/
-      },{
+        test: /\.ts$/,
+        loaders: ['angular2-template-loader', 'awesome-typescript-loader'],
+        exclude: [/node_modules/, /\.(spec|e2e)\.ts$/]
+      }, {
         test: /\.css$/,
         loader: 'style!css'
-      },{
+      }, {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract(['css', 'sass'])
+      }, {
+        test: /\.html$/,
+        loader: 'raw-loader',
+        exclude: [path.resolve(__dirname, "index.html")]
       }
     ]
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"./dist/vendor.bundle.js"),
-    new ExtractTextPlugin("./dist/style.css")
+    new ExtractTextPlugin("./dist/style.css"),
+    new HtmlWebpackPlugin({ template: 'index.html' })
   ]
 }
