@@ -1,51 +1,41 @@
-
-  <!--accordion-->
-  <div class="panel-group">
-    <div class="panel panel-info">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-        專案規劃階段
-        <span>+</span>
-        <button>不查核</button>
+<!--accordion-->
+<div class="panel-group">
+  <div class="panel panel-info" *ngFor="let step of StepList">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        {{step.Title}}
+        <button (click)="addNewItem($event)">+</button>
+        <button (click)="disableAllItemState($event)">不查核</button>
       </h3>
-      </div>
-      <div class="panel-body list-group">
-        <div class="list-group-item">
-          <div class="title">PM 是否已了解合約內容</div>
-          <input type="date">
-          <button>不查核</button>
-          <div class="descr">預計完成日與 KickOff 預計完成日相同</div>
-        </div>
-        <div class="list-group-item">
-          <div class="title">kickoff 簡報</div>
-          <div class="descr"></div>
-        </div>
-        <div class="list-group-item">
-          <input type="text" placeholder="title" class="title">
-          <textarea placeholder="description" class="descr"></textarea>
-        </div>
-      </div>
     </div>
-    <div class="panel panel-info">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-      訪談
-        <span>+</span>
-      </h3>
-      </div>
-      <div class="panel-body list-group">
-        <div class="list-group-item">
-          <div class="title">差異分析文件(SA)</div>
-          <div class="descr"></div>
-        </div>
-        <div class="list-group-item">
-          <div class="title">訪談會議記錄</div>
-          <div class="descr">在差異分析文件未出之前，需每周確認是否有會議記錄產生。</div>
-        </div>
-        <div class="list-group-item">
-          <input type="text" placeholder="title" class="title">
-          <textarea placeholder="description" class="descr"></textarea>
-        </div>
+    <div class="panel-body list-group">
+      <div class="list-group-item" *ngFor="let item of step.ItemList">
+        <button (click)="deleteItem($event)" *ngIf="item.IsNew">-</button>
+        <div class="title">{{item.Title}}</div>
+        <input type="date" [(ngModel)]="item.PlanDueDay">
+        <button (click)="disableItemState($event)">不查核</button>
+        <div class="descr">{{item.Description}}</div>
       </div>
     </div>
   </div>
+</div>
+
+<modal #addItemModal (onClose)="closedNewItem()" (onDismiss)="dismissedNewItem()">
+  <modal-header>
+    <h4 class="modal-title">新增項目</h4>
+  </modal-header>
+  <modal-body>
+    <div class="form-group">
+      <label for="title">項目:</label>
+      <input autofocus id="title" type="text" class="form-control" placeholder="Ex:服務記錄單" [(ngModel)]="newItem.Title" required>
+    </div>
+    <div class="form-group">
+      <label for="description">備註:</label>
+      <textarea id="description" class="descr" [(ngModel)]="newItem.Description"></textarea>
+    </div>
+  </modal-body>
+  <modal-footer>
+    <button type="button" data-dismiss="modal" (click)="validationModal.dismiss()">取消</button>
+    <button type="button" (click)="validationModal.close()">新增</button>
+  </modal-footer>
+</modal>
