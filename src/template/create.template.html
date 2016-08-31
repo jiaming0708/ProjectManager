@@ -1,14 +1,14 @@
 <!--accordion-->
 <div class="panel-group">
   <div class="panel panel-info" *ngFor="let step of StepList">
-    <div class="panel-heading">
+    <div class="panel-heading" (click)="showStep(step)">
       <h3 class="panel-title">
         {{step.Title}}
         <button (click)="addNewItem(step)">+</button>
         <button (click)="disableAllItemState(step)">不查核</button>
       </h3>
     </div>
-    <div class="panel-body list-group">
+    <div class="panel-body list-group" [hidden]="!step.SelectedFlag">
       <div class="list-group-item" *ngFor="let item of step.ItemList">
         <button (click)="deleteItem(step, item)" *ngIf="item.IsNew">-</button>
         <div class="title">{{item.Title}}</div>

@@ -1,4 +1,4 @@
-import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 import { MODAL_DIRECTIVES, ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
@@ -25,6 +25,7 @@ export class CreateComponent {
   private Init() {
     this.StepList = [{
       Title: '專案規劃',
+      SelectedFlag: true,
       ItemList: [{
         Title: 'PM 是否已了解合約內容',
         Description: '預計完成日與 KickOff 預計完成日相同',
@@ -49,6 +50,7 @@ export class CreateComponent {
         }]
     }, {
         Title: '種子教育訓練',
+        SelectedFlag: false,
         ItemList: [{
           Title: '教育訓練計畫(時程、任務)',
           Description: '',
@@ -108,5 +110,14 @@ export class CreateComponent {
 
   closedNewItem() {
     this.SelectedStep.ItemList.push(this.NewItem);
+  }
+
+  showStep(step: Step) {
+    if(step.SelectedFlag){
+      return;
+    }
+    //according
+    this.StepList.forEach(p => p.SelectedFlag = false);
+    step.SelectedFlag = true;
   }
 }
