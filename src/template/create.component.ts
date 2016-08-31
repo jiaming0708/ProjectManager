@@ -16,6 +16,7 @@ export class CreateComponent {
   StepList: Step[];
   NewItem: Item;
   SelectedStep: Step;
+  StateType = StateType;
 
   constructor() {
     this.Init();
@@ -76,15 +77,20 @@ export class CreateComponent {
   }
 
   disableAllItemState(step: Step) {
-    //step.ItemList.forEach(item=>item.State = )
+    step.ItemList.forEach(item => item.State = StateType.None);
   }
 
-  deleteItem($event) {
-
+  deleteItem(step: Step, item: Item) {
+    var index = step.ItemList.indexOf(item);
+    step.ItemList.splice(index, 1);
   }
 
-  disableItemState($event) {
+  disableItemState(item: Item) {
+    item.State = StateType.None;
+  }
 
+  enableItemState(item: Item) {
+    item.State = StateType.WaitStart;
   }
 
   addNewItem(step: Step) {
@@ -102,11 +108,5 @@ export class CreateComponent {
 
   closedNewItem() {
     this.SelectedStep.ItemList.push(this.NewItem);
-  }
-
-  dismissedNewItem() {
-  }
-
-  opendNewItem() {
   }
 }

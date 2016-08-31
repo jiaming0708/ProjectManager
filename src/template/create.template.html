@@ -10,17 +10,18 @@
     </div>
     <div class="panel-body list-group">
       <div class="list-group-item" *ngFor="let item of step.ItemList">
-        <button (click)="deleteItem($event)" *ngIf="item.IsNew">-</button>
+        <button (click)="deleteItem(step, item)" *ngIf="item.IsNew">-</button>
         <div class="title">{{item.Title}}</div>
         <input type="date" [(ngModel)]="item.PlanDueDay">
-        <button (click)="disableItemState($event)">不查核</button>
+        <button (click)="disableItemState(item)" *ngIf="item.State !== StateType.None" >不查核</button>
+        <button (click)="enableItemState(item)" *ngIf="item.State === StateType.None">查核</button>
         <div class="descr">{{item.Description}}</div>
       </div>
     </div>
   </div>
 </div>
 
-<modal #addItemModal (onClose)="closedNewItem()" (onDismiss)="dismissedNewItem()" (onOpen)="opendNewItem()">
+<modal #addItemModal (onClose)="closedNewItem()">
     <modal-header>
       <h4 class="modal-title">新增項目</h4>
     </modal-header>
