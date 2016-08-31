@@ -10,3 +10,7 @@ import '@angular/platform-browser';
 import '@angular/platform-browser-dynamic';
 import '@angular/router';
 import '@angular/router-deprecated';
+
+import 'jquery';
+import 'bootstrap';
+import 'ng2-bs3-modal';

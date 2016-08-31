@@ -1,13 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
+
+import { MODAL_DIRECTIVES, ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 import { Step } from './step.data';
+import { Item } from './item.data';
 
 @Component({
   selector: 'create',
   template: require('./create.template.html'),
+  directives: [MODAL_DIRECTIVES],
+  encapsulation: ViewEncapsulation.None
 })
 export class CreateComponent {
+  @ViewChild('addItemModal') modal: ModalComponent;
   StepList: Step[];
+  NewItem: Item;
+  SelectedStep: Step;
+
   constructor() {
     this.Init();
   }
@@ -55,21 +64,49 @@ export class CreateComponent {
             RequireFlag: true
           }]
       }];
+
+    this.NewItem = {
+      Title: '',
+      Description: '',
+      PlanDueDay: '',
+      State: 'Wait',
+      IsNew: true,
+      RequireFlag: false
+    };
   }
 
-  addNewItem($event){
+  disableAllItemState(step: Step) {
     
   }
 
-  disableAllItemState($event){
+  deleteItem($event) {
 
   }
 
-  deleteItem($event){
+  disableItemState($event) {
 
   }
 
-  disableItemState($event){
+  addNewItem(step: Step) {
+    this.SelectedStep = step;
+    this.NewItem = {
+      Title: '',
+      Description: '',
+      PlanDueDay: '',
+      State: 'Wait',
+      IsNew: true,
+      RequireFlag: false
+    };
+    this.modal.open();
+  }
 
+  closedNewItem() {
+    this.SelectedStep.ItemList.push(this.NewItem);
+  }
+
+  dismissedNewItem() {
+  }
+
+  opendNewItem() {
   }
 }

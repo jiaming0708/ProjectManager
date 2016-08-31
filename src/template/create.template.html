@@ -4,8 +4,8 @@
     <div class="panel-heading">
       <h3 class="panel-title">
         {{step.Title}}
-        <button (click)="addNewItem($event)">+</button>
-        <button (click)="disableAllItemState($event)">不查核</button>
+        <button (click)="addNewItem(step)">+</button>
+        <button (click)="disableAllItemState(step)">不查核</button>
       </h3>
     </div>
     <div class="panel-body list-group">
@@ -13,29 +13,29 @@
         <button (click)="deleteItem($event)" *ngIf="item.IsNew">-</button>
         <div class="title">{{item.Title}}</div>
         <input type="date" [(ngModel)]="item.PlanDueDay">
-        <button (click)="disableItemState($event)">不查核</button>
+        <button (click)="disableItemState($event)" *ngIf="item.State == ''">不查核</button>
         <div class="descr">{{item.Description}}</div>
       </div>
     </div>
   </div>
 </div>
 
-<modal #addItemModal (onClose)="closedNewItem()" (onDismiss)="dismissedNewItem()">
-  <modal-header>
-    <h4 class="modal-title">新增項目</h4>
-  </modal-header>
-  <modal-body>
-    <div class="form-group">
-      <label for="title">項目:</label>
-      <input autofocus id="title" type="text" class="form-control" placeholder="Ex:服務記錄單" [(ngModel)]="newItem.Title" required>
-    </div>
-    <div class="form-group">
-      <label for="description">備註:</label>
-      <textarea id="description" class="descr" [(ngModel)]="newItem.Description"></textarea>
-    </div>
-  </modal-body>
-  <modal-footer>
-    <button type="button" data-dismiss="modal" (click)="validationModal.dismiss()">取消</button>
-    <button type="button" (click)="validationModal.close()">新增</button>
-  </modal-footer>
+<modal #addItemModal (onClose)="closedNewItem()" (onDismiss)="dismissedNewItem()" (onOpen)="opendNewItem()">
+    <modal-header>
+      <h4 class="modal-title">新增項目</h4>
+    </modal-header>
+    <modal-body>
+      <div class="form-group">
+        <label for="title">項目:</label>
+        <input autofocus id="title" type="text" class="form-control" placeholder="Ex:服務記錄單" [(ngModel)]="NewItem.Title" required ngControl="Title">
+      </div>
+      <div class="form-group">
+        <label for="description">備註:</label>
+        <textarea id="description" class="descr" [(ngModel)]="NewItem.Description" ngControl="Description"></textarea>
+      </div>
+    </modal-body>
+    <modal-footer>
+      <button data-dismiss="NewItem" (click)="addItemModal.dismiss()">取消</button>
+      <button (click)="addItemModal.close()">新增</button>
+    </modal-footer>
 </modal>
