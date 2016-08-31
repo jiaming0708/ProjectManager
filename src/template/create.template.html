@@ -13,7 +13,7 @@
         <button (click)="deleteItem($event)" *ngIf="item.IsNew">-</button>
         <div class="title">{{item.Title}}</div>
         <input type="date" [(ngModel)]="item.PlanDueDay">
-        <button (click)="disableItemState($event)" *ngIf="item.State == ''">不查核</button>
+        <button (click)="disableItemState($event)">不查核</button>
         <div class="descr">{{item.Description}}</div>
       </div>
     </div>
