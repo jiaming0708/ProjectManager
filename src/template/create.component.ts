@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, animate, transition, trigger, state, style } from '@angular/core';
 
 import { MODAL_DIRECTIVES, ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
@@ -9,7 +9,21 @@ import { StateType } from '../StateType.enum';
 @Component({
   selector: 'create',
   template: require('./create.template.html'),
-  directives: [MODAL_DIRECTIVES]
+  directives: [MODAL_DIRECTIVES],
+  animations: [
+    trigger('stepSelected', [
+      state('false', style({
+        'max-height': 0,
+        opacity: 0,
+        transform: 'translate(0, 50%)',
+        padding: 0
+      })),
+      state('true', style({
+        opacity: 1,
+        transform: 'translate(0, 0)'
+      }))
+    ])
+  ]
 })
 export class CreateComponent {
   @ViewChild('addItemModal') modal: ModalComponent;
@@ -113,7 +127,7 @@ export class CreateComponent {
   }
 
   showStep(step: Step) {
-    if(step.SelectedFlag){
+    if (step.SelectedFlag) {
       return;
     }
     //according

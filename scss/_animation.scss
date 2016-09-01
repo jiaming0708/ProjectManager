@@ -1,0 +1,37 @@
+$wave_translateY_0: -10px;
+$wave_translateY_100:-100px;
+$wave_height_0: 80px;
+$wave_height_100: 120px;
+
+@-moz-keyframes wave {
+  0% {
+    height: $wave_height_0;
+  }
+  100% {
+    height: $wave_height_100;
+  }
+}
+@-webkit-keyframes wave {
+  0% {
+    height: $wave_height_0;
+  }
+  100% {
+    height: $wave_height_100;
+  }
+}
+@-o-keyframes wave {
+  0% {
+    height: $wave_height_0;
+  }
+  100% {
+    height: $wave_height_100;
+  }
+}
+@keyframes wave {
+  0% {
+    height: $wave_height_0;
+  }
+  100% {
+    height: $wave_height_100;
+  }
+}

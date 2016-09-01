@@ -1,4 +1,99 @@
-.projectList{
+@import 'animation';
+
+.check-list{
     list-style: none;
-    
+    display: flex;
+    flex-wrap: wrap;
+
+    .block {
+        border: 1px black solid;
+        width: 150px;
+        height: 150px;
+        margin: 10px;
+        border-radius: 50%;
+        overflow: hidden;
+        position: relative;
+
+        h4{
+            position: absolute;
+            top: 20%;
+            left: 30%;
+            z-index: 9;
+        }
+
+        .count{
+            position: absolute;
+            top: 55%;
+            left: 42%;
+            z-index: 9;
+        }
+
+        .water{
+            width:100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .wave{
+            background: #46a1de;
+            width:1px;
+            height: 80px;
+            float: left;
+            position: absolute;
+            bottom: 0;
+            animation: wave 1s 5 ease-in-out alternate;
+        }
+
+        @for $i from 1 through 150{
+            .wave:nth-child(#{$i}){
+                animation-delay: 0.002s * $i;
+                left: 1px * ($i - 1);
+            }
+        }
+    }
+
+    .detail-block{
+        width:600px;
+        height:400px;
+        border-radius: 10px;
+
+        h4{
+            text-align: center;
+            font-weight: bold;
+            position: initial;
+        }
+    }
+
+}
+
+.item-list{
+    list-style: none;
+    overflow: auto;
+    height: 80%;
+    padding: 0;
+    margin:0 40px;
+
+    .item{
+        & > div{
+            display: inline-block;
+        }
+
+        & > div:nth-child(1){
+            width: 74%;
+        }
+
+        .buttons{
+            width: 25%;
+        }
+
+        .state{
+            display: inline-block;
+            width: 20%;
+        }
+
+        .date{
+            display: inline-block;
+            width: 25%;
+        }
+    }
 }
