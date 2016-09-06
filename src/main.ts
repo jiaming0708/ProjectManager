@@ -2,6 +2,7 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic }    from '@angular/platform-browser-dynamic';
 import { FormsModule }   from '@angular/forms';
+import { HttpModule }    from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { routing, appRoutingProviders } from './app.route';
@@ -13,8 +14,9 @@ import '../scss/main.scss';
 @NgModule({
   imports: [
     BrowserModule,
-    routing,
-    FormsModule
+    FormsModule,
+    HttpModule,
+    routing
   ],
   declarations: [
     AppComponent,

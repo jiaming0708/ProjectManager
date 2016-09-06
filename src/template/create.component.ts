@@ -1,15 +1,17 @@
-import { Component, ViewChild, animate, transition, trigger, state, style } from '@angular/core';
+import { Component, ViewChild, animate, transition, trigger, state, style, OnInit } from '@angular/core';
 
 import { MODAL_DIRECTIVES, ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 import { Step } from './step.data';
 import { Item } from './item.data';
 import { StateType } from '../StateType.enum';
+import { TemplateService } from './template.service';
 
 @Component({
   selector: 'create',
   template: require('./create.template.html'),
   directives: [MODAL_DIRECTIVES],
+  providers: [TemplateService],
   animations: [
     trigger('stepSelected', [
       state('false', style({
@@ -25,71 +27,20 @@ import { StateType } from '../StateType.enum';
     ])
   ]
 })
-export class CreateComponent {
+export class CreateComponent implements OnInit {
   @ViewChild('addItemModal') modal: ModalComponent;
   StepList: Step[];
   NewItem: Item;
   SelectedStep: Step;
   StateType = StateType;
 
-  constructor() {
-    this.Init();
-  }
+  constructor(private _templateService: TemplateService) { }
 
-  private Init() {
-    this.StepList = [{
-      Title: '專案規劃',
-      SelectedFlag: true,
-      ItemList: [{
-        Title: 'PM 是否已了解合約內容',
-        Description: '預計完成日與 KickOff 預計完成日相同',
-        PlanDueDay: '',
-        State: StateType.WaitStart,
-        IsNew: false,
-        RequireFlag: true
-      }, {
-          Title: 'kickoff 簡報',
-          Description: '',
-          PlanDueDay: '',
-          State: StateType.WaitStart,
-          IsNew: false,
-          RequireFlag: true
-        }, {
-          Title: '專案時程計畫表',
-          Description: '',
-          PlanDueDay: '',
-          State: StateType.WaitStart,
-          IsNew: false,
-          RequireFlag: true
-        }]
-    }, {
-        Title: '種子教育訓練',
-        SelectedFlag: false,
-        ItemList: [{
-          Title: '教育訓練計畫(時程、任務)',
-          Description: '',
-          PlanDueDay: '',
-          State: StateType.WaitStart,
-          IsNew: false,
-          RequireFlag: true
-        }, {
-            Title: '教育訓練簽到單',
-            Description: '',
-            PlanDueDay: '',
-            State: StateType.WaitStart,
-            IsNew: false,
-            RequireFlag: true
-          }]
-      }];
+  ngOnInit(): void {
+    this._templateService.getInitialStepList()
+      .then(data => this.StepList = data);
 
-    this.NewItem = {
-      Title: '',
-      Description: '',
-      PlanDueDay: '',
-      State: StateType.WaitStart,
-      IsNew: true,
-      RequireFlag: false
-    };
+    this.NewItem = this._templateService.getEmptyItem();
   }
 
   disableAllItemState(step: Step) {
@@ -100,7 +51,7 @@ export class CreateComponent {
     var index = step.ItemList.indexOf(item);
     step.ItemList.splice(index, 1);
   }
-
+ 
   disableItemState(item: Item) {
     item.State = StateType.None;
   }
@@ -111,14 +62,7 @@ export class CreateComponent {
 
   addNewItem(step: Step) {
     this.SelectedStep = step;
-    this.NewItem = {
-      Title: '',
-      Description: '',
-      PlanDueDay: '',
-      State: StateType.WaitStart,
-      IsNew: true,
-      RequireFlag: false
-    };
+    this.NewItem = this._templateService.getEmptyItem();
     this.modal.open();
   }
 
@@ -133,5 +77,14 @@ export class CreateComponent {
     //according
     this.StepList.forEach(p => p.SelectedFlag = false);
     step.SelectedFlag = true;
+  }
+
+  create() {
+    //do transaction
+    this._templateService.createProjectCheckList(this.StepList);
+  }
+
+  return() {
+    //return to pervious page
   }
 }
