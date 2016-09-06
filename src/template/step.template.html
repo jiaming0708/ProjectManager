@@ -1,0 +1,32 @@
+<div class="panel-heading" (click)="showStep()">
+    <h3 class="panel-title">
+        {{step.Title}}
+        <button (click)="addNewItem()">+</button>
+        <button (click)="disableAllItemState()">不查核</button>
+      </h3>
+</div>
+<div class="panel-body list-group" [@stepSelected]="step.SelectedFlag">
+    <div class="list-group-item" *ngFor="let item of step.ItemList">
+        <stepItem [data]="item" (delete)="deleteItem($event)"></stepItem>
+    </div>
+</div>
+
+<modal #addItemModal (onClose)="closedNewItem()">
+  <modal-header>
+    <h4 class="modal-title">新增項目</h4>
+  </modal-header>
+  <modal-body>
+    <div class="form-group">
+      <label for="title">項目:</label>
+      <input autofocus id="title" type="text" class="form-control" placeholder="Ex:服務記錄單" [(ngModel)]="NewItem.Title" required ngControl="Title">
+    </div>
+    <div class="form-group">
+      <label for="description">備註:</label>
+      <textarea id="description" class="descr" [(ngModel)]="NewItem.Description" ngControl="Description"></textarea>
+    </div>
+  </modal-body>
+  <modal-footer>
+    <button data-dismiss="NewItem" (click)="addItemModal.dismiss()">取消</button>
+    <button (click)="addItemModal.close()">新增</button>
+  </modal-footer>
+</modal>

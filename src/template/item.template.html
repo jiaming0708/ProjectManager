@@ -1,0 +1,6 @@
+<button (click)="deleteItem(item)" *ngIf="item.IsNew">-</button>
+<div class="title">{{item.Title}}</div>
+<input type="date" [(ngModel)]="item.PlanDueDay">
+<button (click)="disableItemState(item)" *ngIf="item.State !== StateType.None">不查核</button>
+<button (click)="enableItemState(item)" *ngIf="item.State === StateType.None">查核</button>
+<div class="descr">{{item.Description}}</div>
