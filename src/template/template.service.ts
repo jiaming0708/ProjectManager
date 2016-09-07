@@ -69,7 +69,8 @@ export class TemplateService {
             PlanDueDay: '',
             State: StateType.WaitStart,
             IsNew: true,
-            RequireFlag: false
+            RequireFlag: false,
+            Checked: true
         };
     }
 
