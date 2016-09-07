@@ -1,14 +1,14 @@
-export enum StateType{
-    /* 未開始 */
-    WaitStart,
-    /* 進行中 */
-    Going,
-    /* 延遲完成 */
-    DelayDone,
-    /* 完成 */
-    Done,
+export enum StateType {
     /* 不查核 */
-    None,
+    None = 0,
+    /* 未開始 */
+    WaitStart = 1,
+    /* 進行中 */
+    Going = 2,
     /* 未完成 */
-    Notyet
+    Notyet = 3,
+    /* 延遲完成 */
+    DelayDone = 4,
+    /* 完成 */
+    Done = 5
 }
