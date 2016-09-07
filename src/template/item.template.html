@@ -1,6 +1,6 @@
 <button (click)="deleteItem()" *ngIf="item.IsNew">-</button>
 <div class="title">{{item.Title}}</div>
-<input type="date" [(ngModel)]="item.PlanDueDay">
+<input type="date" [(ngModel)]="item.PlanDueDay" (change)="chnagePlanDueDay()">
 <label class="switch">
     <input type="checkbox" (change)="toggleItemState()" [(ngModel)]="item.Checked">
     <div class="slider round"></div>

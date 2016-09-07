@@ -13,7 +13,7 @@ export class ItemComponent implements OnInit {
   @Output() delete = new EventEmitter();
   StateType = StateType;
 
-  ngOnInit(){
+  ngOnInit() {
     this.item.Checked = this.item.State !== StateType.None;
   }
 
@@ -21,16 +21,24 @@ export class ItemComponent implements OnInit {
     this.delete.emit(this.item);
   }
 
-  toggleItemState(){
-    if(this.item.Checked){
+  toggleItemState() {
+    if (this.item.Checked) {
       this.changeState(StateType.WaitStart);
     }
-    else{
+    else {
       this.changeState(StateType.None);
     }
   }
 
-  private changeState(type:StateType){
+  private changeState(type: StateType) {
     this.item.State = type;
+  }
+
+  chnagePlanDueDay() {
+    //若有輸入日期，則一定要查核
+    if (this.item.PlanDueDay) {
+      this.item.Checked = true;
+      this.toggleItemState();
+    }
   }
 }
