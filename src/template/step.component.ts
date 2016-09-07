@@ -19,7 +19,7 @@ import { TemplateService } from './template.service';
         opacity: 0,
         transform: 'translate(0, 50%)',
         padding: 0,
-        overflow:'hidden'
+        overflow: 'hidden'
       })),
       state('true', style({
         opacity: 1,
@@ -42,7 +42,7 @@ export class StepComponent implements OnInit {
   }
 
   disableAllItemState() {
-    this.step.ItemList.forEach(item => item.State = StateType.None);
+    this.step.ItemList.forEach(item => { item.State = StateType.None; item.Checked = false; });
   }
 
   deleteItem(item: Item) {

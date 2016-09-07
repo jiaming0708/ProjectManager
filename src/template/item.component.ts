@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
 import { Item } from './item.data';
 import { StateType } from '../stateType.enum';
@@ -8,21 +8,26 @@ import { StateType } from '../stateType.enum';
   template: require('./item.template.html'),
 })
 
-export class ItemComponent {
+export class ItemComponent implements OnInit {
   @Input('data') item: Item;
   @Output() delete = new EventEmitter();
   StateType = StateType;
 
+  ngOnInit(){
+    this.item.Checked = this.item.State !== StateType.None;
+  }
+
   deleteItem() {
     this.delete.emit(this.item);
   }
- 
-  disableItemState() {
-    this.changeState(StateType.None);
-  }
 
-  enableItemState() {
-    this.changeState(StateType.WaitStart);
+  toggleItemState(){
+    if(this.item.Checked){
+      this.changeState(StateType.WaitStart);
+    }
+    else{
+      this.changeState(StateType.None);
+    }
   }
 
   private changeState(type:StateType){

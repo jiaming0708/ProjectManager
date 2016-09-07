@@ -1,38 +1,32 @@
-.panel{
-
-    .title{
+.panel {
+    .title {
         display: inline-block;
     }
-
-    .descr{
+    .descr {
         margin-left: 15px;
     }
-
-    input.title{
+    input.title {
         display: initial;
         width: 25%;
     }
-
-    textarea.descr{
+    textarea.descr {
         width: 50%;
         display: block;
     }
-
-    section{
-        &>div{
+    section {
+        &>div {
             margin: 5px 0;
         }
     }
-
-    .panel-heading{
+    .panel-heading {
         cursor: pointer;
     }
-
-    .panel-body{
+    .panel-body {
         transition: all 0.25s ease-in-out;
     }
 }
 
-step {
-  display: block;
+step,
+stepItem {
+    display: block;
 }

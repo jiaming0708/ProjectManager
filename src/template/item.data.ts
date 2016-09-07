@@ -7,4 +7,5 @@ export class Item {
     State: StateType;
     IsNew: boolean;
     RequireFlag: boolean;
+    Checked:boolean;//for toggle effect
 }
