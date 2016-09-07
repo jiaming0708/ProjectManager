@@ -1,4 +1,4 @@
-import { Component, ViewChild, animate, transition, trigger, state, style, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Step } from './step.data';
 import { Item } from './item.data';
