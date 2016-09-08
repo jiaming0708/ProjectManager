@@ -9,6 +9,7 @@ import { StateType } from '../stateType.enum';
 })
 
 export class ItemComponent implements OnInit {
+  @Input() simpleType: boolean = false;
   @Input('data') item: Item;
   @Output() delete = new EventEmitter();
   StateType = StateType;

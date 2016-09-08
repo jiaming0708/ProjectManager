@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { routing, appRoutingProviders } from './app.route';
 import { CreateComponent } from './template/create.component';
 import { DashBoardComponent } from './dashboard/dashboard.component';
+import { MaintainComponent } from './template/maintain.component';
 
 import '../scss/main.scss';
 
@@ -21,7 +22,8 @@ import '../scss/main.scss';
   declarations: [
     AppComponent,
     CreateComponent,
-    DashBoardComponent
+    DashBoardComponent,
+    MaintainComponent
   ],
   providers: [appRoutingProviders],
   bootstrap: [AppComponent]

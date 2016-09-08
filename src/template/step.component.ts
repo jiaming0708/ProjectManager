@@ -31,6 +31,7 @@ import { TemplateService } from './template.service';
 
 export class StepComponent implements OnInit {
   @ViewChild('addItemModal') modal: ModalComponent;
+  @Input() simpleType: boolean = false;
   @Input('data') step: Step;
   @Output() open = new EventEmitter();
   NewItem: Item;
