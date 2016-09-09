@@ -1,23 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Step } from '../data/step.data';
-import { Item } from '../data/item.data';
-import { TemplateService } from './template.service';
+import { StepService } from '../data/step.service';
 import { StepComponent } from './step.component';
 
 @Component({
   selector: 'create',
   template: require('./create.template.html'),
   directives: [StepComponent],
-  providers: [TemplateService]
+  providers: [StepService]
 })
 export class CreateComponent implements OnInit {
   StepList: Step[];
 
-  constructor(private _templateService: TemplateService) { }
+  constructor(private _stepService: StepService) { }
 
   ngOnInit(): void {
-    this._templateService.getInitialStepList()
+    this._stepService.getInitialStepList()
       .then(data => this.StepList = data);
   }
 
@@ -32,7 +31,7 @@ export class CreateComponent implements OnInit {
 
   create() {
     //do transaction
-    this._templateService.createProjectCheckList(this.StepList);
+    this._stepService.createProjectCheckList(this.StepList);
   }
 
   return() {
