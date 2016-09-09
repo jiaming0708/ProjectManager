@@ -4,9 +4,9 @@ import 'rxjs/add/operator/toPromise';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 
-import { Step } from './step.data';
-import { Item } from './item.data';
-import { StateType } from '../stateType.enum';
+import { Step } from '../data/step.data';
+import { Item } from '../data/item.data';
+import { StateType } from '../data/stateType.enum';
 
 @Injectable()
 export class TemplateService {

@@ -1,9 +1,9 @@
 import { Component, Input, Output, EventEmitter, ViewChild, animate, transition, trigger, state, style, OnInit } from '@angular/core';
 import { MODAL_DIRECTIVES, ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
-import { Step } from './step.data';
-import { Item } from './item.data';
-import { StateType } from '../stateType.enum';
+import { Step } from '../data/step.data';
+import { Item } from '../data/item.data';
+import { StateType } from '../data/stateType.enum';
 import { ItemComponent } from './item.component';
 import { TemplateService } from './template.service';
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Step } from './step.data';
-import { Item } from './item.data';
+import { Step } from '../data/step.data';
+import { Item } from '../data/item.data';
 import { TemplateService } from './template.service';
 import { StepComponent } from './step.component';
 

@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
-import { Item } from './item.data';
-import { StateType } from '../stateType.enum';
+import { Item } from '../data/item.data';
+import { StateType } from '../data/stateType.enum';
 
 @Component({
   selector: 'stepItem',

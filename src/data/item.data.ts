@@ -1,4 +1,4 @@
-import { StateType } from '../StateType.enum';
+import { StateType } from './StateType.enum';
 
 export class Item {
     Title: string;
