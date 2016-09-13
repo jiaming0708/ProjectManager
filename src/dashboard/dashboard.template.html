@@ -171,10 +171,10 @@
                         </session>
                     </div>
                     <div class="buttons">
-                        <button>狀態變更</button>
-                        <button>展延</button>
-                        <button>查核</button>
-                        <button>檔案上傳</button>
+                        <button (click)="changeState(item)">狀態變更</button>
+                        <button (click)="extendItem(item)">展延</button>
+                        <button (click)="checkItem(item)">查核</button>
+                        <button (click)="updateItemFilePath(item)">檔案上傳</button>
                     </div>
                     <hr>
                 </li>

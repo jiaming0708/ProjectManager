@@ -84,4 +84,23 @@ export class StepService {
 
     createProjectCheckList(stepList: Step[]) {
     }
+
+    getStepListByProjectId(id: number): Promise<Step[]> {
+        return Promise.resolve(this._stepList);
+    }
+
+    updateTemplateCheckList(stepList: Step[]) {
+    }
+
+    changeItemState(item: Item) {
+    }
+
+    extendItem(item: Item, descr: string) {
+    }
+
+    checkItem(item: Item) {
+    }
+
+    updateItemFilePath(item: Item) {
+    }
 }
