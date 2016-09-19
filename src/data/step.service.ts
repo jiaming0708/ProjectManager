@@ -13,6 +13,7 @@ export class StepService {
     constructor(private _http: Http) {
     }
 
+    private url = "http://localhost:9563/";
     private _stepList = [
         new Step({
             Title: '專案規劃',
@@ -66,8 +67,11 @@ export class StepService {
         })
     ];
 
-    getInitialStepList(): Promise<Step[]> {
-        return Promise.resolve(this._stepList);
+    getInitialStepList() {
+        return this._http.post(this.url+"Check/GetTemplateStepList", "")
+        .toPromise()
+        .then(res=>res.json())
+        .catch(this.handleError);
     }
 
     getEmptyItem(): Item {
@@ -102,5 +106,10 @@ export class StepService {
     }
 
     updateItemFilePath(item: Item) {
+    }
+
+    private handleError(error: any) {
+        console.error('An error occurred', error);
+        return Promise.reject(error.message || error);
     }
 }
