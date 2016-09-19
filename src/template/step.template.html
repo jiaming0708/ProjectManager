@@ -1,11 +1,11 @@
 <div class="panel-heading" (click)="showStep()">
   <h3 class="panel-title">
-        {{step.Title}}
-        <button (click)="addNewItem()">+</button>
-        <button (click)="disableAllItemState()" *ngIf="simpleType">不查核</button>
-      </h3>
+    {{step.Title}}
+    <button (click)="addNewItem()">+</button>
+    <button (click)="disableAllItemState()" *ngIf="simpleType">不查核</button>
+  </h3>
 </div>
-<div class="panel-body list-group" [@stepSelected]="step.SelectedFlag">
+<div class="panel-body list-group" [@stepSelected]="step.SelectedFlag" *ngIf="step.ItemList">
   <div class="list-group-item" *ngFor="let item of step.ItemList">
     <stepItem [data]="item" (delete)="deleteItem($event)" [simpleType]="simpleType"></stepItem>
   </div>

@@ -2,6 +2,6 @@
     <button (click)="save()">儲存</button>
     <button (click)="return()">返回</button>
 </header>
-<div class="panel-group">
+<div class="panel-group" *ngIf="StepList">
     <step class="panel panel-info" [data]="step" (open)="showStep($event)" *ngFor="let step of StepList" [simpleType]="'true'"></step>
 </div>
