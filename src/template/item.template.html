@@ -1,4 +1,4 @@
-<button (click)="deleteItem()" *ngIf="item.IsNew">-</button>
+<div class="glyphicon glyphicon-trash" (click)="deleteItem()" *ngIf="item.IsNew"></div>
 <div class="title">{{item.Title}}</div>
 <input type="date" [(ngModel)]="item.PlanDueDay" (change)="chnagePlanDueDay()" *ngIf="!simpleType">
 <label class="switch">

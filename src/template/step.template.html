@@ -1,8 +1,8 @@
 <div class="panel-heading" (click)="showStep()">
   <h3 class="panel-title">
     {{step.Title}}
-    <button (click)="addNewItem()">+</button>
-    <button (click)="disableAllItemState()" *ngIf="!simpleType">不查核</button>
+    <div class="glyphicon glyphicon-plus" (click)="addNewItem()"></div>
+    <button class="btn btn-default" (click)="disableAllItemState()" *ngIf="!simpleType">不查核</button>
   </h3>
 </div>
 <div class="panel-body list-group" [@stepSelected]="step.SelectedFlag" *ngIf="step.ItemList">
@@ -26,7 +26,7 @@
     </div>
   </modal-body>
   <modal-footer>
-    <button data-dismiss="NewItem" (click)="addItemModal.dismiss()">取消</button>
-    <button (click)="addItemModal.close()">新增</button>
+    <button class="btn btn-default" data-dismiss="NewItem" (click)="addItemModal.dismiss()">取消</button>
+    <button class="btn btn-default" (click)="addItemModal.close()">新增</button>
   </modal-footer>
 </modal>
