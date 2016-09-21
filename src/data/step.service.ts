@@ -13,7 +13,7 @@ export class StepService {
     constructor(private _http: Http) {
     }
 
-    private url = "http://localhost:9563/";
+    private url = "http://localhost:9563/Check/";
     private _stepList = [
         new Step({
             Title: '專案規劃',
@@ -68,10 +68,10 @@ export class StepService {
     ];
 
     getInitialStepList() {
-        return this._http.post(this.url+"Check/GetTemplateStepList", "")
-        .toPromise()
-        .then(res=>res.json())
-        .catch(this.handleError);
+        return this._http.post(this.url + "GetTemplateStepList", "")
+            .toPromise()
+            .then(res => res.json())
+            .catch(this.handleError);
     }
 
     getEmptyItem(): Item {
@@ -87,6 +87,10 @@ export class StepService {
     }
 
     createProjectCheckList(stepList: Step[]) {
+        return this._http.post(this.url + "CreateProjectCheckList", stepList)
+            .toPromise()
+            .then(res => res.json())
+            .catch(this.handleError);
     }
 
     getStepListByProjectId(id: number): Promise<Step[]> {
@@ -94,6 +98,10 @@ export class StepService {
     }
 
     updateTemplateCheckList(stepList: Step[]) {
+        return this._http.post(this.url + "UpdateTemplateCheckList", stepList)
+            .toPromise()
+            .then(res => res.json())
+            .catch(this.handleError);
     }
 
     changeItemState(item: Item) {
