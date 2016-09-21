@@ -2,19 +2,21 @@ import { Item } from './item.data';
 import { StateType } from './stateType.enum';
 
 export class Step {
-    constructor(jsonData?){
-        Object.assign(this, jsonData);
+    constructor(jsonData?) {
+        this.Title = jsonData.Title;
+        this.ItemList = [];
+        this.SelectedFlag = jsonData.SelectedFlag || false;
     }
 
     Title: string;
     ItemList: Item[];
     SelectedFlag: boolean;
 
-    get TotalItemCount(){
+    get TotalItemCount() {
         return this.ItemList.length;
     }
 
-    get DoneItemCount(){
-        return this.ItemList.filter(p=>p.State === StateType.Done).length;
+    get DoneItemCount() {
+        return this.ItemList.filter(p => p.State === StateType.Done).length;
     }
 }
