@@ -2,6 +2,7 @@ import { StateType } from './StateType.enum';
 
 export class Item {
     constructor(jsonData?) {
+        this.Id = jsonData.Id;
         this.Title = jsonData.Title;
         this.Description = jsonData.Description;
         this.PlanDueDay = jsonData.PlanDueDay;
@@ -11,6 +12,7 @@ export class Item {
         this.Checked = jsonData.Checked || false;
     }
 
+    Id:number;
     Title: string;
     Description: string;
     PlanDueDay: string;
