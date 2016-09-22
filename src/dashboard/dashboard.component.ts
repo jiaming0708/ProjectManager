@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Step } from '../data/step.data';
 import { Item } from '../data/item.data';
 import { StepService } from '../data/step.service';
+import { StateType } from '../data/stateType.enum';
 
 @Component({
   selector: 'dashboard',
@@ -14,6 +15,7 @@ import { StepService } from '../data/step.service';
 export class DashBoardComponent implements OnInit, OnDestroy {
   StepList: Step[];
   private sub: Subscription;
+  StateType = StateType;
 
   constructor(private _stepService: StepService, private route: ActivatedRoute) { }
 
