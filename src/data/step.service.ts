@@ -70,7 +70,19 @@ export class StepService {
     getInitialStepList() {
         return this._http.post(this.url + "GetTemplateStepList", "")
             .toPromise()
-            .then(res => res.json())
+            .then(res => {
+                var data = res.json();
+                if (data.Result) {
+                    //轉換為前端使用物件
+                    data.StepList = this.parseStepDataList(data.StepList);
+                    //預設值第一個選取
+                    if (data.StepList.length > 0) {
+                        data.StepList[0].SelectedFlag = true;
+                    }
+                }
+
+                return data;
+            })
             .catch(this.handleError);
     }
 
@@ -100,7 +112,19 @@ export class StepService {
     updateTemplateCheckList(stepList: Step[]) {
         return this._http.post(this.url + "UpdateTemplateCheckList", stepList)
             .toPromise()
-            .then(res => res.json())
+            .then(res => {
+                var data = res.json();
+                if (data.Result) {
+                    //轉換為前端使用物件
+                    data.StepList = this.parseStepDataList(data.StepList);
+                    //預設值第一個選取
+                    if (data.StepList.length > 0) {
+                        data.StepList[0].SelectedFlag = true;
+                    }
+                }
+
+                return data;
+            })
             .catch(this.handleError);
     }
 
@@ -119,5 +143,24 @@ export class StepService {
     private handleError(error: any) {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);
+    }
+
+    private parseStepData(data: any): Step {
+        var step = new Step(data);
+        step.ItemList = [];
+        data.ItemList.forEach(element => {
+            step.ItemList.push(new Item(element));
+        });
+
+        return step;
+    }
+
+    private parseStepDataList(data: any): Step[] {
+        var lstStep: Step[] = [];
+        data.forEach(element => {
+            lstStep.push(this.parseStepData(element));
+        });
+
+        return lstStep;
     }
 }

@@ -22,7 +22,7 @@ export class MaintainComponent implements OnInit {
           alert(data.ErrorMessage);
           return;
         }
-        this.StepList = data.StepList
+        this.StepList = data.StepList;
       });
   }
 
@@ -43,10 +43,7 @@ export class MaintainComponent implements OnInit {
           alert(data.ErrorMessage);
           return;
         }
+        this.StepList = data.StepList;
       });
-  }
-
-  return() {
-    //return to pervious page
   }
 }
