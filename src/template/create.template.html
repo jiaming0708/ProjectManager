@@ -1,6 +1,6 @@
 <header>
-  <button class="btn btn-default" (click)="create()">建立</button>
-  <button class="btn btn-default" (click)="return()">返回</button>
+  <button class="btn btn-default" (click)="create()"><span class="glyphicon glyphicon-ok"></span>建立</button>
+  <button class="btn btn-default" (click)="return()"><span class="glyphicon glyphicon-remove"></span>返回</button>
 </header>
 <div class="panel-group" *ngIf="StepList">
   <step class="panel panel-info" [data]="step" (open)="showStep($event)" *ngFor="let step of StepList"></step>

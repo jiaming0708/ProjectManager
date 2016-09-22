@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute }       from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Step } from '../data/step.data';
 import { StepService } from '../data/step.service';
@@ -10,14 +12,26 @@ import { StepComponent } from './step.component';
   directives: [StepComponent],
   providers: [StepService]
 })
-export class CreateComponent implements OnInit {
+export class CreateComponent implements OnInit,OnDestroy {
   StepList: Step[];
+  private Id:number;
+  private sub: Subscription;
 
-  constructor(private _stepService: StepService) { }
+  constructor(private _stepService: StepService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.sub = this.route.params.subscribe(params => {
+      this.Id = +params['id']; // (+) converts string 'id' to a number
+    });
+
     this._stepService.getInitialStepList()
-      .then(data => this.StepList = data);
+      .then(data => {
+        if (!data.Result) {
+          alert(data.ErrorMessage);
+          return;
+        }
+        this.StepList = data.StepList;
+      });
   }
 
   showStep(step: Step) {
@@ -31,10 +45,23 @@ export class CreateComponent implements OnInit {
 
   create() {
     //do transaction
-    this._stepService.createProjectCheckList(this.StepList);
+    this._stepService.createProjectCheckList(this.Id, this.StepList)
+    .then(p=>{
+      if(!p.Result){
+        alert(p.ErrorMessage);
+        return;
+      }
+
+      this.return();
+    });
   }
 
   return() {
     //return to pervious page
+    window.location.href = "Project/ProjectList";
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 }

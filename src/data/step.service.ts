@@ -98,8 +98,8 @@ export class StepService {
         });
     }
 
-    createProjectCheckList(stepList: Step[]) {
-        return this._http.post(this.url + "CreateProjectCheckList", stepList)
+    createProjectCheckList(id: number, stepList: Step[]) {
+        return this._http.post(this.url + "CreateProjectCheckList", { projectId: id, lstStepModel: stepList })
             .toPromise()
             .then(res => res.json())
             .catch(this.handleError);
