@@ -2,7 +2,7 @@
 <div class="title">{{item.Title}}</div>
 <input type="date" [(ngModel)]="item.PlanDueDay" (change)="chnagePlanDueDay()" *ngIf="!simpleType">
 <label class="switch">
-    <input type="checkbox" (change)="toggleItemState()" [(ngModel)]="item.Checked">
+    <input type="checkbox" (ngModelChange)="toggleItemState($event)" [(ngModel)]="item.Checked">
     <div class="slider round"></div>
 </label>
 <div class="descr">{{item.Description}}</div>

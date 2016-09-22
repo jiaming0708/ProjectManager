@@ -15,15 +15,15 @@ export class ItemComponent implements OnInit {
   StateType = StateType;
 
   ngOnInit() {
-    this.item.Checked = this.item.State !== StateType.None;
+    this.item.Checked = (this.item.State !== StateType.None);
   }
 
   deleteItem() {
     this.delete.emit(this.item);
   }
 
-  toggleItemState() {
-    if (this.item.Checked) {
+  toggleItemState(newValue) {
+    if (newValue) {
       this.changeState(StateType.WaitStart);
     }
     else {
@@ -39,7 +39,7 @@ export class ItemComponent implements OnInit {
     //若有輸入日期，則一定要查核
     if (this.item.PlanDueDay) {
       this.item.Checked = true;
-      this.toggleItemState();
+      this.toggleItemState(this.item.Checked);
     }
   }
 }
