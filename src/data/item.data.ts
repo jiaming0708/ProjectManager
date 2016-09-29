@@ -5,7 +5,7 @@ export class Item {
         this.Id = jsonData.Id;
         this.Title = jsonData.Title;
         this.Description = jsonData.Description;
-        this.PlanDueDay = jsonData.PlanDueDay;
+        this.PlanDueDay = new Date(parseInt(jsonData.PlanDueDay.replace(/[^0-9 +]/g, ''))).toLocaleDateString();
         this.State = jsonData.State;
         this.IsNew = jsonData.IsNew || false;
         this.RequireFlag = jsonData.RequireFlag || false;
