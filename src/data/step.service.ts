@@ -105,8 +105,23 @@ export class StepService {
             .catch(this.handleError);
     }
 
-    getStepListByProjectId(id: number): Promise<Step[]> {
-        return Promise.resolve(this._stepList);
+    getStepListByProjectId(id: number) {
+        return this._http.post(this.url + "GetStepListByProjectId", {projectId:id})
+            .toPromise()
+            .then(res => {
+                var data = res.json();
+                if (data.Result) {
+                    //轉換為前端使用物件
+                    data.StepList = this.parseStepDataList(data.StepList);
+                    //預設值第一個選取
+                    if (data.StepList.length > 0) {
+                        data.StepList[0].SelectedFlag = true;
+                    }
+                }
+
+                return data;
+            })
+            .catch(this.handleError);
     }
 
     updateTemplateCheckList(stepList: Step[]) {

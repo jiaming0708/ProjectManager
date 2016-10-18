@@ -15,15 +15,22 @@ import { StateType } from '../data/stateType.enum';
 export class DashBoardComponent implements OnInit, OnDestroy {
   StepList: Step[];
   private sub: Subscription;
+  private Id:number;
   StateType = StateType;
 
   constructor(private _stepService: StepService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.sub = this.route.params.subscribe(params => {
-      let id = +params['id']; // (+) converts string 'id' to a number
-      this._stepService.getStepListByProjectId(id)
-        .then(data => this.StepList = data);
+      this.Id = +params['id']; // (+) converts string 'id' to a number
+      this._stepService.getStepListByProjectId(this.Id)
+      .then(data => {
+        if (!data.Result) {
+          alert(data.ErrorMessage);
+          return;
+        }
+        this.StepList = data.StepList;
+      });
     });
   }
 
