@@ -106,7 +106,7 @@ export class StepService {
     }
 
     getStepListByProjectId(id: number) {
-        return this._http.post(this.url + "GetStepListByProjectId", {projectId:id})
+        return this._http.post(this.url + "GetStepListByProjectId", { projectId: id })
             .toPromise()
             .then(res => {
                 var data = res.json();
