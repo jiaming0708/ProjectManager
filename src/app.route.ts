@@ -9,7 +9,7 @@ const appRoutes: Routes = [
   { path: 'maintain', component: MaintainComponent, },
   {
     path: '',
-    redirectTo: 'create',
+    redirectTo: 'maintain',
     pathMatch: 'full'
   }
 ];
