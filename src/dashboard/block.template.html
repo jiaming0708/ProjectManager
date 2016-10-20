@@ -158,23 +158,7 @@
     <h1>{{step.Title}}</h1>
     <ul class="item-list">
         <li class="item" *ngFor="let item of step.ItemList">
-            <div>
-                <header class="header">
-                    {{item.Title}}
-                </header>
-                <session class="content">
-                    <span class="state">{{StateType[item.State]}}</span>
-                    <span class="date">{{item.PlanDueDay}}</span>
-                    <!--<a href="file:///\\192.168.100.21\ciMes 專案管理\專案導入\奇美材料\2016年升級5.0版\專案管理\奇材KickOffMeeting.pptx">檔案連結</a>-->
-                </session>
-            </div>
-            <div class="buttons">
-                <button class="btn btn-default" (click)="changeState(item)">狀態變更</button>
-                <button class="btn btn-default" (click)="extendItem(item)">展延</button>
-                <button class="btn btn-default" (click)="checkItem(item)">查核</button>
-                <button class="btn btn-default" (click)="updateItemFilePath(item)">檔案上傳</button>
-            </div>
-            <hr>
+            <detailItem [data]="item"></detailItem>
         </li>
     </ul>
 </div>
