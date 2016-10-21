@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({ name: 'enumKeys' })
 export class EnumKeysPipe implements PipeTransform {
-    transform(value: any, args: string[]): any {
+    transform(value: any, args: any[]): any {
         /*
           enum Sample{
               FirstName=0,
@@ -21,8 +21,8 @@ export class EnumKeysPipe implements PipeTransform {
         */
         let keys = [];
         for (var enumMember in value) {
-            var isValueProperty = parseInt(enumMember, 10) >= 0
-            if (isValueProperty) {
+            var enumMemeberNumber = parseInt(enumMember, 10);
+            if (enumMemeberNumber >= 0 && args.indexOf(enumMemeberNumber) < 0) {
                 keys.push(enumMember);
                 //console.log("enum member: ", enumMember);
             }
