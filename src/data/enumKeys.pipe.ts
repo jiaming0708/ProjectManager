@@ -19,6 +19,10 @@ export class EnumKeysPipe implements PipeTransform {
           0
           1
         */
+        if (!args) {
+            args = [];
+        }
+
         let keys = [];
         for (var enumMember in value) {
             var enumMemeberNumber = parseInt(enumMember, 10);
