@@ -27,7 +27,7 @@ export class EnumKeysPipe implements PipeTransform {
         for (var enumMember in value) {
             var enumMemeberNumber = parseInt(enumMember, 10);
             if (enumMemeberNumber >= 0 && args.indexOf(enumMemeberNumber) < 0) {
-                keys.push(enumMember);
+                keys.push(enumMemeberNumber);
                 //console.log("enum member: ", enumMember);
             }
         }
