@@ -1,14 +1,17 @@
-import { Component, Input, Output, EventEmitter, animate, transition, trigger, state, style } from '@angular/core';
+import { Component, Input, Output, EventEmitter, animate, transition, trigger, state, style, ViewChild, OnInit } from '@angular/core';
+import { ModalComponent, MODAL_DIRECTIVES } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 import { Step } from '../data/step.data';
 import { Item } from '../data/item.data';
 import { StepService } from '../data/step.service';
 import { StateType } from '../data/stateType.enum';
+import { EnumKeysPipe } from './../data/enumKeys.pipe';
 
 @Component({
     selector: 'block',
     template: require('./block.template.html'),
     providers: [StepService],
+    pipes: [EnumKeysPipe],
     animations: [
         trigger('simpleFlag', [
             state('false', style({
@@ -44,19 +47,75 @@ import { StateType } from '../data/stateType.enum';
         ])
     ]
 })
-export class BlockComponent {
+export class BlockComponent implements OnInit {
     StateType = StateType;
     @Input('data') step: Step;
     @Output() onOpenDetail = new EventEmitter;
+    @ViewChild('changeStateModal') stateModel: ModalComponent;
+    @ViewChild('extendItemModal') extendModel: ModalComponent;
+    SelectedItem: Item;
 
     constructor(private _stepService: StepService) { }
 
+    ngOnInit() {
+        //void null reference
+        this.SelectedItem = this._stepService.getEmptyItem();
+    }
+
     changeState(item: Item) {
-        this._stepService.changeItemState(item);
+        //copy object to void relative orgin object
+        Object.assign(this.SelectedItem, item);
+        this.stateModel.open();
+    }
+
+    closedChangeState() {
+        this._stepService.changeItemState(this.SelectedItem)
+            .then(data => {
+                if (!data.Result) {
+                    alert(data.ErrorMessage);
+                    return;
+                }
+
+                this.step.ItemList.forEach(item => {
+                    if (item.Id !== this.SelectedItem.Id) {
+                        return;
+                    }
+
+                    item.State = this.SelectedItem.State;
+                    item.Description = this.SelectedItem.Description;
+                    return false;
+                });
+
+                this.SelectedItem = this._stepService.getEmptyItem();
+            });
     }
 
     extendItem(item: Item) {
-        this._stepService.extendItem(item, "");
+        //copy object to void relative orgin object
+        Object.assign(this.SelectedItem, item);
+        this.extendModel.open();
+    }
+
+    closedExtendItem() {
+        this._stepService.extendItem(this.SelectedItem)
+            .then(data => {
+                if (!data.Result) {
+                    alert(data.ErrorMessage);
+                    return;
+                }
+
+                this.step.ItemList.forEach(item => {
+                    if (item.Id !== this.SelectedItem.Id) {
+                        return;
+                    }
+
+                    item.PlanDueDay = this.SelectedItem.PlanDueDay;
+                    item.Description = this.SelectedItem.Description;
+                    return false;
+                });
+
+                this.SelectedItem = this._stepService.getEmptyItem();
+            });
     }
 
     checkItem(item: Item) {

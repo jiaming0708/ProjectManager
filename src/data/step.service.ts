@@ -144,9 +144,31 @@ export class StepService {
     }
 
     changeItemState(item: Item) {
+        return this._http.post(this.url + "ChangeItemState", item)
+            .toPromise()
+            .then(res => {
+                var data = res.json();
+                if (!data.Result) {
+                    alert(data.ErrorMessage);
+                }
+
+                return data;
+            })
+            .catch(this.handleError);
     }
 
-    extendItem(item: Item, descr: string) {
+    extendItem(item: Item) {
+        return this._http.post(this.url + "ExtendItem", item)
+            .toPromise()
+            .then(res => {
+                var data = res.json();
+                if (!data.Result) {
+                    alert(data.ErrorMessage);
+                }
+
+                return data;
+            })
+            .catch(this.handleError);
     }
 
     checkItem(item: Item) {
