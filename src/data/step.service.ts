@@ -172,6 +172,17 @@ export class StepService {
     }
 
     checkItem(item: Item) {
+        return this._http.post(this.url + "CheckItem", item)
+            .toPromise()
+            .then(res => {
+                var data = res.json();
+                if (!data.Result) {
+                    alert(data.ErrorMessage);
+                }
+
+                return data;
+            })
+            .catch(this.handleError);
     }
 
     updateItemFilePath(item: Item) {

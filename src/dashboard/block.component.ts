@@ -119,7 +119,19 @@ export class BlockComponent implements OnInit {
     }
 
     checkItem(item: Item) {
-        this._stepService.checkItem(item);
+        if (!confirm('是否查核此項目?')) {
+            return;
+        }
+
+        this._stepService.checkItem(item)
+            .then(data => {
+                if (!data.Result) {
+                    alert(data.ErrorMessage);
+                    return;
+                }
+
+                this.SelectedItem = this._stepService.getEmptyItem();
+            });
     }
 
     updateItemFilePath(item: Item) {
