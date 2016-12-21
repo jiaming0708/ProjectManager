@@ -142,4 +142,8 @@ export class BlockComponent implements OnInit {
     openDetail() {
         this.onOpenDetail.emit(this.step);
     }
+
+    checkButtonDisable(item: Item) {
+        return item.State === StateType.Done || item.State === StateType.DelayDone;
+    }
 }
