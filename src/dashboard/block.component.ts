@@ -54,6 +54,7 @@ export class BlockComponent implements OnInit {
     @ViewChild('changeStateModal') stateModel: ModalComponent;
     @ViewChild('extendItemModal') extendModel: ModalComponent;
     SelectedItem: Item;
+    WaveArray = Array(150).fill(1);
 
     constructor(private _stepService: StepService) { }
 
