@@ -12,9 +12,9 @@ import { StepComponent } from './step.component';
   directives: [StepComponent],
   providers: [StepService]
 })
-export class CreateComponent implements OnInit,OnDestroy {
+export class CreateComponent implements OnInit, OnDestroy {
   StepList: Step[];
-  private Id:number;
+  private Id: number;
   private sub: Subscription;
 
   constructor(private _stepService: StepService, private route: ActivatedRoute) { }
@@ -46,14 +46,14 @@ export class CreateComponent implements OnInit,OnDestroy {
   create() {
     //do transaction
     this._stepService.createProjectCheckList(this.Id, this.StepList)
-    .then(p=>{
-      if(!p.Result){
-        alert(p.ErrorMessage);
-        return;
-      }
+      .then(p => {
+        if (!p.Result) {
+          alert(p.ErrorMessage);
+          return;
+        }
 
-      this.return();
-    });
+        this.return();
+      });
   }
 
   return() {
