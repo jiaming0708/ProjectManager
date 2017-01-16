@@ -37,11 +37,11 @@
       float: left;
       position: absolute;
       bottom: 0;
-      animation: wave 1s 5 ease-in-out alternate;
+      // animation: wave 1s 5 ease-in-out alternate;
     }
     @for $i from 1 through 150 {
       .wave:nth-child(#{$i}) {
-        animation-delay: 0.002s * $i;
+        // animation-delay: 0.002s * $i;
         left: 1px * ($i - 1);
       }
     }
@@ -84,6 +84,9 @@ $itemListButtonWidth:30%;
     .date {
       display: inline-block;
       width: 25%;
+    }
+    .delay {
+      color: red;
     }
   }
 }
