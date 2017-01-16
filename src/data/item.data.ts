@@ -10,9 +10,10 @@ export class Item {
         this.IsNew = jsonData.IsNew || false;
         this.RequireFlag = jsonData.RequireFlag || false;
         this.Checked = jsonData.Checked || false;
+        this.DelayFlag = jsonData.DelayFlag || false;
     }
 
-    Id:number;
+    Id: number;
     Title: string;
     Description: string;
     PlanDueDay: string;
@@ -20,4 +21,5 @@ export class Item {
     IsNew: boolean;
     RequireFlag: boolean;
     Checked: boolean;//for toggle effect
+    DelayFlag: boolean;
 }
