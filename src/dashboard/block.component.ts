@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, animate, transition, trigger, state, style, ViewChild, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, animate, transition, trigger, state, style, ViewChild, OnInit, HostBinding } from '@angular/core';
 import { ModalComponent, MODAL_DIRECTIVES } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 import { Step } from '../data/step.data';
@@ -6,12 +6,14 @@ import { Item } from '../data/item.data';
 import { StepService } from '../data/step.service';
 import { StateType } from '../data/stateType.enum';
 import { EnumKeysPipe } from './../data/enumKeys.pipe';
+import { WaterHightDirective } from './waterHeight.directive';
 
 @Component({
     selector: 'block',
     template: require('./block.template.html'),
     providers: [StepService],
     pipes: [EnumKeysPipe],
+    directives: [WaterHightDirective],
     animations: [
         trigger('simpleFlag', [
             state('false', style({

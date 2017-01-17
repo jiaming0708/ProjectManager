@@ -9,6 +9,7 @@ import { routing, appRoutingProviders } from './app.route';
 import { CreateComponent } from './template/create.component';
 import { DashBoardComponent } from './dashboard/dashboard.component';
 import { MaintainComponent } from './template/maintain.component';
+import { WaterHightDirective } from './dashboard/waterHeight.directive';
 
 import '../scss/main.scss';
 
@@ -23,7 +24,8 @@ import '../scss/main.scss';
     AppComponent,
     CreateComponent,
     DashBoardComponent,
-    MaintainComponent
+    MaintainComponent,
+    WaterHightDirective
   ],
   providers: [appRoutingProviders],
   bootstrap: [AppComponent]
