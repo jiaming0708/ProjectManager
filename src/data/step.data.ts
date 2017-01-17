@@ -19,6 +19,6 @@ export class Step {
     }
 
     get DoneItemCount() {
-        return this.ItemList.filter(p => p.State === StateType.Done).length;
+        return this.ItemList.filter(p => p.State === StateType.Done || p.State === StateType.DelayDone).length;
     }
 }
