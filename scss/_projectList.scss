@@ -13,11 +13,10 @@
     position: relative;
     cursor: pointer;
     h1 {
-      position: absolute;
-      top: 20%;
-      left: 30%;
       z-index: 9;
       font-size: small;
+      margin: 30% 0 0;
+      text-align: center;
     }
     .count {
       position: absolute;
@@ -32,18 +31,10 @@
     }
     .wave {
       background: #46a1de;
-      width: 1px;
+      width: 100%;
       height: 80px;
-      float: left;
       position: absolute;
       bottom: 0;
-      // animation: wave 1s 5 ease-in-out alternate;
-    }
-    @for $i from 1 through 150 {
-      .wave:nth-child(#{$i}) {
-        // animation-delay: 0.002s * $i;
-        left: 1px * ($i - 1);
-      }
     }
   }
   .detail-block {
@@ -52,10 +43,10 @@
     border-radius: 10px;
     cursor: auto;
     h1 {
-      text-align: center;
       font-weight: bold;
       position: initial;
       font-size: x-large;
+      margin: inherit;
     }
   }
 }

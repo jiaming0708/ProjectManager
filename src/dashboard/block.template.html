@@ -2,7 +2,7 @@
   <h1>{{step.Title}}</h1>
   <div class="count">{{step.DoneItemCount}}/{{step.TotalItemCount}}</div>
   <div class="water">
-    <div class="wave" *ngFor="let i of WaveArray" [style.height.%]="step.DoneItemCount/step.TotalItemCount*100"></div>
+    <div class="wave" [style.height.%]="step.TotalItemCount === 0? 0: step.DoneItemCount/step.TotalItemCount*100"></div>
   </div>
 </div>
 <div class="detail-block block" [@detailFlag]="step.SelectedFlag">
