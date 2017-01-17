@@ -15,7 +15,7 @@
         </header>
         <session class="content">
           <span class="state">{{StateType[item.State]}}</span>
-          <span class="date">{{item.PlanDueDay}}</span>
+          <span class="date" [ngClass]="{'delay':item.DelayFlag}">{{item.PlanDueDay}}</span>
           <!--<a href="file:///\\192.168.100.21\ciMes 專案管理\專案導入\奇美材料\2016年升級5.0版\專案管理\奇材KickOffMeeting.pptx">檔案連結</a>-->
         </session>
       </div>
