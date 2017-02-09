@@ -1,7 +1,7 @@
-import { Injectable }    from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 
 import { Step } from './step.data';
@@ -13,7 +13,7 @@ export class StepService {
     constructor(private _http: Http) {
     }
 
-    private url = "http://localhost:9563/Check/";
+    private url = "http://192.168.100.60/CimesRegister/Check/";
     private _stepList = [
         new Step({
             Title: '專案規劃',
@@ -69,21 +69,21 @@ export class StepService {
 
     getInitialStepList() {
         return this._http.post(this.url + "GetTemplateStepList", "")
-            .toPromise()
-            .then(res => {
+            .switchMap(res => {
                 var data = res.json();
-                if (data.Result) {
-                    //轉換為前端使用物件
-                    data.StepList = this.parseStepDataList(data.StepList);
-                    //預設值第一個選取
-                    if (data.StepList.length > 0) {
-                        data.StepList[0].SelectedFlag = true;
-                    }
+                if (!data.Result) {
+                    Observable.throw(data.ErrorMessage);
+                }
+                //轉換為前端使用物件
+                var stepList = this.parseStepDataList(data.StepList);
+                //預設值第一個選取
+                if (stepList.length > 0) {
+                    stepList[0].SelectedFlag = true;
                 }
 
-                return data;
+                return Observable.of(stepList);
             })
-            .catch(this.handleError);
+            .catch(err => Observable.throw(err.Message || err));
     }
 
     getEmptyItem(): Item {
