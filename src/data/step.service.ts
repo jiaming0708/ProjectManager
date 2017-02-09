@@ -69,21 +69,9 @@ export class StepService {
 
     getInitialStepList() {
         return this._http.post(this.url + "GetTemplateStepList", "")
-            .switchMap(res => {
-                var data = res.json();
-                if (!data.Result) {
-                    Observable.throw(data.ErrorMessage);
-                }
-                //轉換為前端使用物件
-                var stepList = this.parseStepDataList(data.StepList);
-                //預設值第一個選取
-                if (stepList.length > 0) {
-                    stepList[0].SelectedFlag = true;
-                }
-
-                return Observable.of(stepList);
-            })
-            .catch(err => Observable.throw(err.Message || err));
+            .switchMap(this.checkResult)
+            .map(this.parseStepDataList)
+            .catch(this.handleError);
     }
 
     getEmptyItem(): Item {
@@ -100,88 +88,39 @@ export class StepService {
 
     createProjectCheckList(id: number, stepList: Step[]) {
         return this._http.post(this.url + "CreateProjectCheckList", { projectId: id, lstStepModel: stepList })
-            .toPromise()
-            .then(res => res.json())
+            .switchMap(this.checkResult)
             .catch(this.handleError);
     }
 
     getStepListByProjectId(id: number) {
         return this._http.post(this.url + "GetStepListByProjectId", { projectId: id })
-            .toPromise()
-            .then(res => {
-                var data = res.json();
-                if (data.Result) {
-                    //轉換為前端使用物件
-                    data.StepList = this.parseStepDataList(data.StepList);
-                    //預設值第一個選取
-                    if (data.StepList.length > 0) {
-                        data.StepList[0].SelectedFlag = true;
-                    }
-                }
-
-                return data;
-            })
+            .switchMap(this.checkResult)
+            .map(this.parseStepDataList)
             .catch(this.handleError);
     }
 
     updateTemplateCheckList(stepList: Step[]) {
         return this._http.post(this.url + "UpdateTemplateCheckList", stepList)
-            .toPromise()
-            .then(res => {
-                var data = res.json();
-                if (data.Result) {
-                    //轉換為前端使用物件
-                    data.StepList = this.parseStepDataList(data.StepList);
-                    //預設值第一個選取
-                    if (data.StepList.length > 0) {
-                        data.StepList[0].SelectedFlag = true;
-                    }
-                }
-
-                return data;
-            })
+            .switchMap(this.checkResult)
+            .map(this.parseStepDataList)
             .catch(this.handleError);
     }
 
     changeItemState(item: Item) {
         return this._http.post(this.url + "ChangeItemState", item)
-            .toPromise()
-            .then(res => {
-                var data = res.json();
-                if (!data.Result) {
-                    alert(data.ErrorMessage);
-                }
-
-                return data;
-            })
+            .switchMap(this.checkResult)
             .catch(this.handleError);
     }
 
     extendItem(item: Item) {
         return this._http.post(this.url + "ExtendItem", item)
-            .toPromise()
-            .then(res => {
-                var data = res.json();
-                if (!data.Result) {
-                    alert(data.ErrorMessage);
-                }
-
-                return data;
-            })
+            .switchMap(this.checkResult)
             .catch(this.handleError);
     }
 
     checkItem(item: Item) {
         return this._http.post(this.url + "CheckItem", item)
-            .toPromise()
-            .then(res => {
-                var data = res.json();
-                if (!data.Result) {
-                    alert(data.ErrorMessage);
-                }
-
-                return data;
-            })
+            .switchMap(this.checkResult)
             .catch(this.handleError);
     }
 
@@ -190,7 +129,7 @@ export class StepService {
 
     private handleError(error: any) {
         console.error('An error occurred', error);
-        return Promise.reject(error.message || error);
+        return Observable.throw(error.Message || error);
     }
 
     private parseStepData(data: any): Step {
@@ -206,9 +145,27 @@ export class StepService {
     private parseStepDataList(data: any): Step[] {
         var lstStep: Step[] = [];
         data.forEach(element => {
-            lstStep.push(this.parseStepData(element));
+            var step = new Step(element);
+            step.ItemList = [];
+            element.ItemList.forEach(item => {
+                step.ItemList.push(new Item(item));
+            });
+            lstStep.push(step);
         });
 
+        if (lstStep.length > 0) {
+            lstStep[0].SelectedFlag = true;
+        }
+
         return lstStep;
+    }
+
+    private checkResult(res: any): Observable<any> {
+        var data = res.json();
+        if (!data.Result) {
+            Observable.throw(data.ErrorMessage);
+        }
+
+        return Observable.of(data.StepList);
     }
 }

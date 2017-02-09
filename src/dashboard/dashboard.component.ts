@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute }       from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 import { Step } from '../data/step.data';
@@ -23,12 +23,11 @@ export class DashBoardComponent implements OnInit, OnDestroy {
     this.sub = this.route.params.subscribe(params => {
       this.Id = +params['id']; // (+) converts string 'id' to a number
       this._stepService.getStepListByProjectId(this.Id)
-        .then(data => {
-          if (!data.Result) {
-            alert(data.ErrorMessage);
-            return;
-          }
-          this.StepList = data.StepList;
+        .subscribe(data => {
+          this.StepList = data;
+        },
+        err => {
+          alert(err);
         });
     });
   }

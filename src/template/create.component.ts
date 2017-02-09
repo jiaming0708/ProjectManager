@@ -45,13 +45,11 @@ export class CreateComponent implements OnInit, OnDestroy {
   create() {
     //do transaction
     this._stepService.createProjectCheckList(this.Id, this.StepList)
-      .then(p => {
-        if (!p.Result) {
-          alert(p.ErrorMessage);
-          return;
-        }
-
+      .subscribe(p => {
         this.return();
+      },
+      err => {
+        alert(err);
       });
   }
 

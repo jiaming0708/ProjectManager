@@ -71,12 +71,7 @@ export class BlockComponent implements OnInit {
 
     closedChangeState() {
         this._stepService.changeItemState(this.SelectedItem)
-            .then(data => {
-                if (!data.Result) {
-                    alert(data.ErrorMessage);
-                    return;
-                }
-
+            .subscribe(data => {
                 this.step.ItemList.forEach(item => {
                     if (item.Id !== this.SelectedItem.Id) {
                         return;
@@ -88,6 +83,9 @@ export class BlockComponent implements OnInit {
                 });
 
                 this.SelectedItem = this._stepService.getEmptyItem();
+            },
+            err => {
+                alert(err);
             });
     }
 
@@ -99,12 +97,7 @@ export class BlockComponent implements OnInit {
 
     closedExtendItem() {
         this._stepService.extendItem(this.SelectedItem)
-            .then(data => {
-                if (!data.Result) {
-                    alert(data.ErrorMessage);
-                    return;
-                }
-
+            .subscribe(data => {
                 this.step.ItemList.forEach(item => {
                     if (item.Id !== this.SelectedItem.Id) {
                         return;
@@ -116,6 +109,9 @@ export class BlockComponent implements OnInit {
                 });
 
                 this.SelectedItem = this._stepService.getEmptyItem();
+            },
+            err => {
+                alert(err);
             });
     }
 
@@ -125,13 +121,11 @@ export class BlockComponent implements OnInit {
         }
 
         this._stepService.checkItem(item)
-            .then(data => {
-                if (!data.Result) {
-                    alert(data.ErrorMessage);
-                    return;
-                }
-
+            .subscribe(data => {
                 this.SelectedItem = this._stepService.getEmptyItem();
+            },
+            err => {
+                alert(err);
             });
     }
 
