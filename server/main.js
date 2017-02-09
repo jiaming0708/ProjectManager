@@ -56,7 +56,12 @@ let steList = [
   })
 ];
 
-app.get('/GetTemplateStepList', function (req, res) {
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  })
+  .post('/GetTemplateStepList', function (req, res) {
     res.send({
       Result: true,
       StepList: steList
@@ -67,29 +72,29 @@ app.get('/GetTemplateStepList', function (req, res) {
       Result: true
     });
   })
-  .get('/GetStepListByProjectId/:id', function (req, res) {
+  .post('/GetStepListByProjectId/:id', function (req, res) {
     res.send({
       Result: true,
       StepList: steList
     });
   })
-  .get('/UpdateTemplateCheckList', function (req, res) {
+  .post('/UpdateTemplateCheckList', function (req, res) {
     res.send({
       Result: true,
       StepList: steList
     });
   })
-  .get('/ChangeItemState', function (req, res) {
+  .post('/ChangeItemState', function (req, res) {
     res.send({
       Result: true
     });
   })
-  .get('/ExtendItem', function (req, res) {
+  .post('/ExtendItem', function (req, res) {
     res.send({
       Result: true
     });
   })
-  .get('/CheckItem', function (req, res) {
+  .post('/CheckItem', function (req, res) {
     res.send({
       Result: true
     });
