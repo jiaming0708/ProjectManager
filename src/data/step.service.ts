@@ -13,7 +13,7 @@ export class StepService {
     constructor(private _http: Http) {
     }
 
-    private url = "http://192.168.100.60/CimesRegister/Check/";
+    private url = "http://localhost:3000/";
     private _stepList = [
         new Step({
             Title: '專案規劃',
