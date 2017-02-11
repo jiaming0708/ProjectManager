@@ -17,12 +17,11 @@ export class MaintainComponent implements OnInit {
 
   ngOnInit(): void {
     this._stepService.getInitialStepList()
-      .then(data => {
-        if (!data.Result) {
-          alert(data.ErrorMessage);
-          return;
-        }
-        this.StepList = data.StepList;
+      .subscribe(data => {
+        this.StepList = data;
+      },
+      err => {
+        alert(err);
       });
   }
 
@@ -38,12 +37,11 @@ export class MaintainComponent implements OnInit {
   save() {
     //do transaction
     this._stepService.updateTemplateCheckList(this.StepList)
-      .then(data => {
-        if (!data.Result) {
-          alert(data.ErrorMessage);
-          return;
-        }
-        this.StepList = data.StepList;
+      .subscribe(data => {
+        this.StepList = data;
+      },
+      err => {
+        alert(err);
       });
   }
 }

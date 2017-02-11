@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute }       from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 import { Step } from '../data/step.data';
@@ -25,12 +25,11 @@ export class CreateComponent implements OnInit, OnDestroy {
     });
 
     this._stepService.getInitialStepList()
-      .then(data => {
-        if (!data.Result) {
-          alert(data.ErrorMessage);
-          return;
-        }
-        this.StepList = data.StepList;
+      .subscribe(data => {
+        this.StepList = data;
+      },
+      err => {
+        alert(err);
       });
   }
 
@@ -46,13 +45,11 @@ export class CreateComponent implements OnInit, OnDestroy {
   create() {
     //do transaction
     this._stepService.createProjectCheckList(this.Id, this.StepList)
-      .then(p => {
-        if (!p.Result) {
-          alert(p.ErrorMessage);
-          return;
-        }
-
+      .subscribe(p => {
         this.return();
+      },
+      err => {
+        alert(err);
       });
   }
 
